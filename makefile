@@ -1,16 +1,22 @@
-SRC = src/capitulo_1/1.1/
-SRC2 = src/capitulo_1/1.2/
+SRC = src/capitulo_
 INCL = -I src/capitulo_1/1.3/
-OBJ = obj/capitulo_1/1.1/main.o
-OBJ2 = obj/capitulo_1/1.2/reciproco.o
-EXEC = bin/capitulo_1/1.1/reciproco
+OBJ = obj/capitulo_
+BIN = bin/capitulo_
 
-reciproco: $(OBJ) $(OBJ2)
-	g++ $(OBJ) $(OBJ2) -o $(EXEC)
+all: reciproco arglist
 
-$(OBJ): $(SRC)main.c
-	gcc -c $(INCL) $(SRC)main.c -o $(OBJ)
+reciproco: $(OBJ)1/1.1/main.o $(OBJ)1/1.2/reciproco.o
+	g++ $(OBJ)1/1.1/main.o $(OBJ)1/1.2/reciproco.o -o $(BIN)1/1.1/reciproco
 
-$(OBJ2): $(SRC2)reciproco.cpp
-	g++ -c $(INCL) $(SRC2)reciproco.cpp -o $(OBJ2)
+$(OBJ)1/1.1/main.o: $(SRC)1/1.1/main.c
+	gcc -c $(INCL) $(SRC)1/main.c -o $(OBJ)1/1.1/main.o
+
+$(OBJ)1/1.2/reciproco.o: $(SRC)1/1.2/reciproco.cpp
+	g++ -c $(INCL) $(SRC)1/1.2/reciproco.cpp -o $(OBJ)1/1.2/reciproco.o
+
+arglist: $(OBJ)2/2.1/arglist.o
+	gcc $(OBJ)2/2.1/arglist.o -o $(BIN)2/2.1/arglist
+
+$(OBJ)2/2.1/arglist.o: $(SRC)2/2.1/arglist.c
+	gcc -c $(SRC)2/2.1/arglist.c -o $(OBJ)2/2.1/arglist.o
 
