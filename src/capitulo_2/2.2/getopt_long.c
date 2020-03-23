@@ -8,7 +8,7 @@ const char* program_name;
 //en stdout o stderr, y cierra el programa con exit_code. No retorna nada
 void print_usage (FILE* stram, int exit_code){
     fprintf (stram, "Usage: %s options [ inputfile ...]\n", program_name);
-    fprintf (stream, 
+    fprintf (stram, 
                 " -h --help             Display this usage information.\n"
                 " -o --output filename  Write output to file.\n"
                 " -v --verbose          Print verbose messages.\n");
@@ -18,12 +18,14 @@ void print_usage (FILE* stram, int exit_code){
 int main(int argc,char* argv[]){
     int next_option;
     //una cadena con las letras de opciones cortas validas
-    const char* const short_opcions = "ho:v";
+    const char* const short_opcions = "ho:vf:c:";
     //un array que describe las opciones largas validas
     const struct option long_options[] = {
         {"help",    0,  NULL,   'h'},
         {"output",  1,  NULL,   'o'},
         {"verbose", 0,  NULL,   'v'},
+        {"farenheit",1,NULL,'f'},
+        {"celsius",1,NULL,'c'},
         {"NULL",    0,  NULL,   0}
     };
     //el nombre del archivo que recibira el output del programa, o null si es que es por el output estandar
@@ -51,7 +53,7 @@ int main(int argc,char* argv[]){
             break;
         case '?': //el usuario solicito una opcion no valida, se imprime en el salida de error estandar, y se sale con codigo de salida 1
             print_usage(stderr,1);
-        case -1 //no mas opciones
+        case -1: //no mas opciones
             break;
         default:
             //algo inesperado
@@ -62,6 +64,6 @@ int main(int argc,char* argv[]){
     if(verbose){
         int i;
         for(i = optind; i < argc ;++i)
-            printf("Argument: %s\n", arg[i]);
+            printf("Argument: %s\n", argv[i]);
     }
 }
